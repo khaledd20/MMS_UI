@@ -1,6 +1,14 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
+import { provideRouter, Route } from '@angular/router';
 import { AppComponent } from './app/app.component';
+import { LoginComponent } from './app/login/login.component';
 
-bootstrapApplication(AppComponent, appConfig)
-  .catch((err) => console.error(err));
+const routes: Route[] = [
+  { path: '', component: LoginComponent },
+];
+
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideRouter(routes),
+  ],
+}).catch(err => console.error(err));
