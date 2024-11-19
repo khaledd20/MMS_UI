@@ -1,36 +1,49 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // Import FormsModule
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-login',
-  standalone: true,
-  imports: [FormsModule], // Include FormsModule here
   templateUrl: './login.component.html',
-  styleUrls: []
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  email: string = '';
-  password: string = '';
+  loginForm: FormGroup;
+  errorMessage: string = '';
 
-  login() {
-    console.log('Email:', this.email);
-    console.log('Password:', this.password);
-    // Add your login logic here
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private router: Router,
+    private authService: AuthService
+  ) {
+    // Initialize the login form with reactive form controls and validators
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    });
   }
-}
-/*
+
+  // Submit the form to authenticate the user
   onSubmit() {
-    this.authService.login({ email: this.email, password: this.password }).subscribe(
-      (response) => {
-        const token = response.Bearer; // Assuming the token is in the 'Bearer' field
-        localStorage.setItem('authToken', token); // Save token to localStorage
-        this.router.navigate(['/dashboard']); // Redirect to a dashboard or another page
-      },
-      (error) => {
-        this.errorMessage = 'Invalid email or password.';
-        console.error('Login error:', error);
-      }
-    );
+    if (this.loginForm.valid) {
+      const loginData = this.loginForm.value;
+  
+      this.authService.login(loginData).subscribe({
+        next: (response) => {
+          console.log('Login successful:', response);
+  
+          // Handle the login response
+          this.authService.handleLoginResponse(response);
+        },
+        error: (err) => {
+          console.error('Login failed:', err);
+          this.errorMessage = err.error?.message || 'Invalid email or password.';
+        },
+      });
+    } else {
+      this.errorMessage = 'Please fill in all required fields correctly.';
+    }
   }
 }
-*/
