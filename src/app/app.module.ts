@@ -14,15 +14,17 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 //import { JwtModule } from "@auth0/angular-jwt";
 import { AdminComponent } from './admin/admin.component';
 import { OrganizerComponent } from '../../organizer/organizer.component';//export function tokenGetter() {
+import { RegistrationComponent } from './registration/registration.component';
 //  return localStorage.getItem("tokkern");
 //}
 @NgModule({
-  declarations: [		
+  declarations: [			
     AppComponent,
     LoginComponent,
     DashboardComponent,
       AdminComponent,
-      OrganizerComponent
+      OrganizerComponent,
+      RegistrationComponent
    ],
   imports: [
     BrowserModule,

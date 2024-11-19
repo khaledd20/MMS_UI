@@ -10,13 +10,16 @@ import {jwtDecode} from 'jwt-decode'; // Corrected import
 })
 export class AuthService {
   private loginUrl = `${environment.APIBaseURL}/auth/login`;
+  private registerUrl = `${environment.APIBaseURL}/auth/register`;
 
   constructor(private http: HttpClient, private router: Router) {}
 
   login(loginRequest: { email: string; password: string }): Observable<any> {
     return this.http.post(this.loginUrl, loginRequest);
   }
-
+  register(registerRequest: { name: string; email: string; password: string; roleId: number }): Observable<any> {
+    return this.http.post(this.registerUrl, registerRequest);
+  }
   handleLoginResponse(response: any): void {
     // Extract token from response
     const token = response.bearer;

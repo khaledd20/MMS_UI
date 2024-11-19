@@ -1,0 +1,74 @@
+<div class="registration-container">
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <h2>Register</h2>
+
+    <!-- Name Field -->
+    <div>
+      <label for="name">Name</label>
+      <input
+        id="name"
+        type="text"
+        formControlName="name"
+        placeholder="Enter your name"
+        required
+      />
+      <span *ngIf="registrationForm.get('name')?.invalid && registrationForm.get('name')?.touched">
+        Name is required and must be at least 3 characters.
+      </span>
+    </div>
+
+    <!-- Email Field -->
+    <div>
+      <label for="email">Email</label>
+      <input
+        id="email"
+        type="email"
+        formControlName="email"
+        placeholder="Enter your email"
+        required
+      />
+      <span *ngIf="registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched">
+        Please enter a valid email.
+      </span>
+    </div>
+
+    <!-- Password Field -->
+    <div>
+      <label for="password">Password</label>
+      <input
+        id="password"
+        type="password"
+        formControlName="password"
+        placeholder="Enter your password"
+        required
+      />
+      <span *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched">
+        Password must be at least 6 characters.
+      </span>
+    </div>
+
+    <!-- Role Selection -->
+    <div>
+      <label for="roleId">Role</label>
+      <select id="roleId" formControlName="roleId" required>
+        <option value="">Select your role</option>
+        <option value="2">Organizer</option>
+        <option value="3">Participant</option>
+      </select>
+      <span *ngIf="registrationForm.get('roleId')?.invalid && registrationForm.get('roleId')?.touched">
+        Please select a role.
+      </span>
+    </div>
+
+    <!-- Success and Error Messages -->
+    <div *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
+    </div>
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" [disabled]="registrationForm.invalid">Register</button>
+  </form>
+</div>
