@@ -1,7 +1,6 @@
 import { RouterModule } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -11,20 +10,23 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-//import { JwtModule } from "@auth0/angular-jwt";
 import { AdminComponent } from './admin/admin.component';
-import { OrganizerComponent } from '../../organizer/organizer.component';//export function tokenGetter() {
+import { OrganizerComponent } from './organizer/organizer.component';//export function tokenGetter() {
 import { RegistrationComponent } from './registration/registration.component';
-//  return localStorage.getItem("tokkern");
-//}
+import { MeetingFormComponent } from './meetings/meeting-form/meeting-form.component';
+import { MeetingListComponent } from './meetings/meeting-list/meeting-list.component';
+import { ParticipantComponent } from './participant/participant.component';
+
 @NgModule({
   declarations: [			
     AppComponent,
     LoginComponent,
-    DashboardComponent,
-      AdminComponent,
-      OrganizerComponent,
-      RegistrationComponent
+    ParticipantComponent,
+    AdminComponent,
+    OrganizerComponent,
+    RegistrationComponent,
+    MeetingFormComponent,
+    MeetingListComponent
    ],
   imports: [
     BrowserModule,

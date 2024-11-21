@@ -1,0 +1,23 @@
+<div>
+    <h2>Participant Dashboard</h2>
+  
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let meeting of meetings">
+          <td>{{ meeting.title }}</td>
+          <td>{{ meeting.date }}</td>
+          <td>{{ meeting.time }}</td>
+          <td>{{ meeting.status }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

@@ -1,13 +1,7 @@
-<div class="admin-dashboard">
-  <h1>Welcome to the App</h1>
-  <h2>Admin Dashboard</h2>
+<div>
+  <h2>Organizer Dashboard</h2>
 
-  <!-- Create Meeting Button -->
-  <button routerLink="/meetings/new" class="btn btn-primary">
-    Create New Meeting
-  </button>
-
-  <table class="table">
+  <table>
     <thead>
       <tr>
         <th>Title</th>
@@ -28,16 +22,9 @@
           <button [routerLink]="['/meetings', meeting.meetingId, 'edit']" class="btn btn-warning">
             Edit
           </button>
-          <!-- Delete Meeting Button -->
-          <button (click)="deleteMeeting(meeting.id)" class="btn btn-danger">
-            Delete
-          </button>
+          
         </td>
       </tr>
     </tbody>
   </table>
-
-  <div *ngIf="meetings.length === 0" class="no-meetings">
-    <p>No meetings available.</p>
-  </div>
 </div>

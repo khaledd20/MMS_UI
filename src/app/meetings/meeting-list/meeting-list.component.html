@@ -1,0 +1,29 @@
+<div class="meeting-list">
+    <h2>Meeting List</h2>
+    <button routerLink="/meetings/new" class="btn btn-primary">Add Meeting</button>
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let meeting of meetings">
+          <td>{{ meeting.title }}</td>
+          <td>{{ meeting.date }}</td>
+          <td>{{ meeting.time }}</td>
+          <td>{{ meeting.status }}</td>
+          <td>
+            <button [routerLink]="['/meetings', meeting.id, 'edit']" class="btn btn-secondary">Edit</button>
+            <button (click)="deleteMeeting(meeting.id)" class="btn btn-danger">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
