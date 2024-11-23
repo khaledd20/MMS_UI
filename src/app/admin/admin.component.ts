@@ -31,18 +31,24 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  
   deleteMeeting(id: number): void {
     if (confirm('Are you sure you want to delete this meeting?')) {
+      console.log('Attempting to delete meeting with ID:', id);
+      
       this.meetingService.deleteMeeting(id).subscribe({
         next: () => {
+          // Update meetings list after successful deletion
           this.meetings = this.meetings.filter((meeting) => meeting.id !== id);
           console.log('Meeting deleted successfully.');
+          console.log('Updated meetings list:', this.meetings);
         },
-        error: (err) => {
-          console.error('Failed to delete meeting:', err);
+        error: (err: any) => {
+          console.error('Failed to delete meeting:', err.message || err);
         },
       });
     }
   }
+  
   
 }

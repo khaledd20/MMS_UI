@@ -62,21 +62,21 @@ export class AuthService {
   getCurrentUser(): any {
     const token = localStorage.getItem('authToken');
     if (token) {
-      try {
-        const decodedToken: any = jwtDecode(token);
-        return {
-          userId: decodedToken?.unique_name || decodedToken?.id, // Adjust based on your JWT structure
-          name: decodedToken?.name || '',
-          email: decodedToken?.email || '',
-          roleId: parseInt(decodedToken?.RoleId, 10), // Parse roleId as an integer
-        };
-      } catch (error) {
-        console.error('Error decoding token in getCurrentUser:', error);
-        return null;
-      }
+        try {
+            const decodedToken: any = jwtDecode(token);
+            return {
+                userId: decodedToken?.UserId, // Explicitly fetch UserId
+                name: decodedToken?.name || '',
+                email: decodedToken?.email || '',
+                roleId: parseInt(decodedToken?.RoleId, 10), // Parse roleId as an integer
+            };
+        } catch (error) {
+            console.error('Error decoding token in getCurrentUser:', error);
+            return null;
+        }
     }
     return null;
-  }
+}
 
   private navigateToDefaultRoute(roleId: number): void {
     switch (roleId) {
