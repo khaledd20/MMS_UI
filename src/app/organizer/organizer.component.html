@@ -1,7 +1,12 @@
-<div>
-  <h2>Organizer Dashboard</h2>
+<div class="organizer-dashboard">
+  <h2>organizer Dashboard</h2>
 
-  <table>
+  <!-- Create Meeting Button -->
+  <button routerLink="/meetings/new" class="btn btn-primary">
+    Create New Meeting
+  </button>
+
+  <table class="table">
     <thead>
       <tr>
         <th>Title</th>
@@ -22,9 +27,13 @@
           <button [routerLink]="['/meetings', meeting.meetingId, 'edit']" class="btn btn-warning">
             Edit
           </button>
-          
+                  
         </td>
       </tr>
     </tbody>
   </table>
+
+  <div *ngIf="meetings.length === 0" class="no-meetings">
+    <p>No meetings available.</p>
+  </div>
 </div>

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MeetingService } from '../../services/meeting.service';
 import { AuthService } from '../../services/auth.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-meeting-form',
@@ -19,7 +20,9 @@ export class MeetingFormComponent implements OnInit {
     private meetingService: MeetingService,
     private router: Router,
     private route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private location: Location ,
+
   ) {
     // Initialize the form
     this.meetingForm = this.fb.group({
@@ -86,7 +89,7 @@ export class MeetingFormComponent implements OnInit {
     this.meetingService.createMeeting(payload).subscribe({
       next: () => {
         console.log('Meeting created successfully.');
-        this.router.navigate(['/admin']);
+        this.location.back();
       },
       error: (err: any) => {
         this.errorMessage = 'Failed to create meeting.';
@@ -156,7 +159,7 @@ export class MeetingFormComponent implements OnInit {
       this.meetingService.updateMeeting(this.meetingId, payload).subscribe({
         next: () => {
           console.log('Meeting updated successfully.');
-          this.router.navigate(['/admin']);
+          this.location.back();
         },
         error: (err: any) => {
           this.errorMessage = 'Failed to update meeting.';

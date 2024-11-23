@@ -7,17 +7,18 @@ import { OrganizerComponent } from './organizer/organizer.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { MeetingListComponent } from './meetings/meeting-list/meeting-list.component';
 import { MeetingFormComponent } from './meetings/meeting-form/meeting-form.component';
+import { AuthGuard } from './services/auth.guard';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'participant', component: ParticipantComponent},
-  { path: 'admin', component: AdminComponent },
-  { path: 'organizer', component: OrganizerComponent },
+  { path: 'participant', component: ParticipantComponent, canActivate: [AuthGuard]},
+  { path: 'admin', component: AdminComponent , canActivate: [AuthGuard]},
+  { path: 'organizer', component: OrganizerComponent , canActivate: [AuthGuard]},
   { path: 'register', component: RegistrationComponent },
-  { path: 'meetings', component: MeetingListComponent },
-  { path: 'meetings/new', component: MeetingFormComponent },
-  { path: 'meetings/:id/edit', component: MeetingFormComponent },
-  { path: '', redirectTo: '/meetings', pathMatch: 'full' },
+  { path: 'meetings', component: MeetingListComponent , canActivate: [AuthGuard]},
+  { path: 'meetings/new', component: MeetingFormComponent , canActivate: [AuthGuard]},
+  { path: 'meetings/:id/edit', component: MeetingFormComponent , canActivate: [AuthGuard]},
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   
   
 

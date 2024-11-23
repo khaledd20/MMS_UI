@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import {jwtDecode} from 'jwt-decode'; // Correct import
@@ -12,6 +12,8 @@ export class AuthService {
   private loginUrl = `${environment.APIBaseURL}/auth/login`;
   private registerUrl = `${environment.APIBaseURL}/auth/register`;
   private permissionsUrl = `${environment.APIBaseURL}/api/permissions`;
+  private isLoggedInSubject = new BehaviorSubject<boolean>(this.isAuthenticated());
+  isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
   // Define permissions$ as a BehaviorSubject
   private permissionsSubject = new BehaviorSubject<string[]>([]);
@@ -20,7 +22,12 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   login(loginRequest: { email: string; password: string }): Observable<any> {
-    return this.http.post(this.loginUrl, loginRequest);
+    return this.http.post(this.loginUrl, loginRequest).pipe(
+      tap((response: any) => {
+        localStorage.setItem('authToken', response.token);
+        this.isLoggedInSubject.next(true); // Notify components that the user is logged in
+      })
+    );
   }
 
   register(registerRequest: { name: string; email: string; password: string; roleId: number }): Observable<any> {
@@ -47,6 +54,7 @@ export class AuthService {
 
           // Navigate based on the roleId
           this.navigateToDefaultRoute(roleId);
+          
         },
         error: (err) => {
           console.error('Failed to fetch permissions:', err);
@@ -58,7 +66,15 @@ export class AuthService {
       this.router.navigate(['/login']); // Redirect to login on error
     }
   }
-
+  logout(): void {
+    localStorage.removeItem('authToken'); // Clear the token
+    console.log('User logged out successfully');
+  }
+  isAuthenticated(): boolean {
+    const token = localStorage.getItem('authToken');
+    return !!token; // Returns true if the token exists
+  }
+  
   getCurrentUser(): any {
     const token = localStorage.getItem('authToken');
     if (token) {

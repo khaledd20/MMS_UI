@@ -16,6 +16,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import { MeetingFormComponent } from './meetings/meeting-form/meeting-form.component';
 import { MeetingListComponent } from './meetings/meeting-list/meeting-list.component';
 import { ParticipantComponent } from './participant/participant.component';
+import { NavigationBarComponent } from './shared/navigation-bar/navigation-bar.component';
 
 @NgModule({
   declarations: [			
@@ -26,7 +27,8 @@ import { ParticipantComponent } from './participant/participant.component';
     OrganizerComponent,
     RegistrationComponent,
     MeetingFormComponent,
-    MeetingListComponent
+    MeetingListComponent,
+    NavigationBarComponent
    ],
   imports: [
     BrowserModule,

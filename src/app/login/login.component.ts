@@ -36,6 +36,7 @@ export class LoginComponent {
   
           // Handle the login response
           this.authService.handleLoginResponse(response);
+          
         },
         error: (err) => {
           console.error('Login failed:', err);

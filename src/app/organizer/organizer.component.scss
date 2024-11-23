@@ -1,42 +1,41 @@
-.admin-dashboard {
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
+.organizer-dashboard {
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
     }
-  
-    h2 {
-      font-size: 1.5rem;
-      margin-bottom: 1.5rem;
+
+    th {
+      background-color: #f4f4f4;
     }
-  
-    .table {
-      width: 100%;
-      border-collapse: collapse;
-  
-      th, td {
-        padding: 10px;
-        border: 1px solid #ddd;
-        text-align: left;
-      }
-  
-      th {
-        background-color: #f4f4f4;
-      }
-  
-      tr:hover {
-        background-color: #f9f9f9;
-      }
-  
-      .btn {
-        margin-right: 5px;
-        font-size: 0.9rem;
-      }
+
+    tr:hover {
+      background-color: #f9f9f9;
     }
-  
-    .no-meetings {
-      text-align: center;
-      font-size: 1.2rem;
-      color: gray;
+
+    .btn {
+      margin-right: 5px;
+      font-size: 0.9rem;
     }
   }
-  
+
+  .no-meetings {
+    text-align: center;
+    font-size: 1.2rem;
+    color: gray;
+  }
+}
