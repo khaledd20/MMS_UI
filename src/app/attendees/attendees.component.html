@@ -1,0 +1,31 @@
+<div class="attendees">
+    <h2>Attendees</h2>
+  
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+  
+    <!-- Attendee Form -->
+    <form [formGroup]="attendeeForm" (ngSubmit)="addAttendee()">
+      <div>
+        <label for="name">Name</label>
+        <input id="name" formControlName="name" />
+      </div>
+      <div>
+        <label for="email">Email</label>
+        <input id="email" formControlName="email" />
+      </div>
+      <button type="submit" [disabled]="!attendeeForm.valid">Add Attendee</button>
+    </form>
+  
+    <!-- Attendees List -->
+    <ul *ngIf="attendees.length > 0">
+      <li *ngFor="let attendee of attendees">
+        {{ attendee.name }} ({{ attendee.email }})
+        <button (click)="removeAttendee(attendee.id)">Remove</button>
+      </li>
+    </ul>
+  
+    <div *ngIf="attendees.length === 0">
+      <p>No attendees found.</p>
+    </div>
+  </div>
+  
