@@ -94,6 +94,14 @@ export class AuthService {
     return null;
 }
 
+searchUsers(query: string): Observable<any[]> {
+  const token = localStorage.getItem('authToken');
+  const headers = { Authorization: `Bearer ${token}` };
+
+  return this.http.get<any[]>(`${environment.APIBaseURL}/users/search?query=${query}`, { headers });
+}
+
+
   private navigateToDefaultRoute(roleId: number): void {
     switch (roleId) {
       case 1: // Admin

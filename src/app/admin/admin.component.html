@@ -28,9 +28,13 @@
           <button [routerLink]="['/meetings', meeting.meetingId, 'edit']" class="btn btn-warning">
             Edit
           </button>
+          <!-- View Attendees Button -->
+          <button [routerLink]="['/meetings', meeting.meetingId, 'attendees']" class="btn btn-primary">
+            View Attendees
+          </button>
           <!-- Delete Meeting Button -->
           <button (click)="deleteMeeting(meeting.meetingId)" class="btn btn-danger">Delete</button>
-        
+          
         </td>
       </tr>
     </tbody>

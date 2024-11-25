@@ -20,6 +20,17 @@ export class AttendeesService {
   addAttendee(meetingId: number, attendee: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/${meetingId}/attendees`, attendee);
   }
+  
+  // attendees.service.ts
+  getUsers(): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.APIBaseURL}/auth/users`);
+  }
+  searchUsers(query: string): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.APIBaseURL}/auth/search`, {
+      params: { query },
+    });
+  }
+
 
   // Remove an attendee from a meeting
   removeAttendee(meetingId: number, attendeeId: number): Observable<any> {

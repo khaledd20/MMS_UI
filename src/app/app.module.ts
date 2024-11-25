@@ -29,7 +29,7 @@ import { AttendeesComponent } from './attendees/attendees.component';
     MeetingFormComponent,
     MeetingListComponent,
     NavigationBarComponent,
-    AttendeesComponent
+    AttendeesComponent,
    ],
   imports: [
     BrowserModule,
