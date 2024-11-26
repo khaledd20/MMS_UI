@@ -17,6 +17,8 @@ import { MeetingListComponent } from './meetings/meeting-list/meeting-list.compo
 import { ParticipantComponent } from './participant/participant.component';
 import { NavigationBarComponent } from './shared/navigation-bar/navigation-bar.component';
 import { AttendeesComponent } from './attendees/attendees.component';
+import { MeetingMinutesComponent } from './meeting.minutes/meeting.minutes.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [			
@@ -30,10 +32,12 @@ import { AttendeesComponent } from './attendees/attendees.component';
     MeetingListComponent,
     NavigationBarComponent,
     AttendeesComponent,
+    MeetingMinutesComponent
    ],
   imports: [
     BrowserModule,
     FormsModule,
+    CommonModule,
     ReactiveFormsModule,
     ReactiveFormsModule,
     HttpClientModule,

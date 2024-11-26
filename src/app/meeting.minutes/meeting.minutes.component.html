@@ -1,0 +1,25 @@
+<div>
+  <h2>Meeting Minutes</h2>
+
+  <!-- Error and Success Messages -->
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+  <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
+
+  <!-- Add/Edit Form -->
+  <form [formGroup]="minuteForm" (ngSubmit)="saveMinute()">
+    <textarea formControlName="content" placeholder="Enter meeting minute"></textarea>
+    <button type="submit" [disabled]="minuteForm.invalid">
+      {{ isEditing ? 'Update Minute' : 'Add Minute' }}
+    </button>
+  </form>
+
+  <!-- List of Minutes -->
+  <h3>Minutes List</h3>
+  <ul>
+    <li *ngFor="let minute of minutes">
+      <p>{{ minute.content }} ({{ minute.timestamp | date: 'short' }})</p>
+      <button (click)="editMinute(minute)">Edit</button>
+      <button (click)="deleteMinute(minute.minuteId)">Delete</button>
+    </li>
+  </ul>
+</div>

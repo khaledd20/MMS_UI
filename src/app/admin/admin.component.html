@@ -32,6 +32,10 @@
           <button [routerLink]="['/meetings', meeting.meetingId, 'attendees']" class="btn btn-primary">
             View Attendees
           </button>
+          <!-- View Meeting Minutes Button -->
+          <button [routerLink]="['/minutes', meeting.meetingId, 'minutes']" class="btn btn-primary">
+            Meeting Minutes
+          </button>
           <!-- Delete Meeting Button -->
           <button (click)="deleteMeeting(meeting.meetingId)" class="btn btn-danger">Delete</button>
           
