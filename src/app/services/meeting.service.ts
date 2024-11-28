@@ -19,6 +19,10 @@ export class MeetingService {
     return this.http.get<any>(`${this.baseUrl}/${id}`);
   }
 
+  getMeetingsByOrganizer(organizerId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/organizer/${organizerId}`);
+  }
+
   createMeeting(meeting: any): Observable<any> {
     const { meetingId, ...payload } = meeting; // Exclude meetingId from payload
     return this.http.post<any>(this.baseUrl, payload);

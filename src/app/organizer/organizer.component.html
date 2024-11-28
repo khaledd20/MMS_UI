@@ -1,5 +1,6 @@
 <div class="organizer-dashboard">
-  <h2>organizer Dashboard</h2>
+  <h1>Welcome, Organizer</h1>
+  <h2>Your Meetings</h2>
 
   <!-- Create Meeting Button -->
   <button routerLink="/meetings/new" class="btn btn-primary">
@@ -27,7 +28,16 @@
           <button [routerLink]="['/meetings', meeting.meetingId, 'edit']" class="btn btn-warning">
             Edit
           </button>
-                  
+          <!-- View Attendees Button -->
+          <button [routerLink]="['/meetings', meeting.meetingId, 'attendees']" class="btn btn-primary">
+            View Attendees
+          </button>
+          <!-- View Meeting Minutes Button -->
+          <button [routerLink]="['/minutes', meeting.meetingId, 'minutes']" class="btn btn-primary">
+            Meeting Minutes
+          </button>
+          <!-- Delete Meeting Button -->
+          <button (click)="deleteMeeting(meeting.meetingId)" class="btn btn-danger">Delete</button>
         </td>
       </tr>
     </tbody>
