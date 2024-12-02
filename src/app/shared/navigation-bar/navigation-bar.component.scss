@@ -1,28 +1,66 @@
 .navbar {
-    background-color: #007bff;
-    padding: 1rem;
-    color: white;
+  background-color: #007bff; // Primary blue background
+  color: #fff; // White text
+  padding: 10px 20px;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Subtle shadow
+  margin-bottom: 20px;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
-  
+
   .navbar-brand {
-    color: white;
+    font-size: 20px;
     font-weight: bold;
+    color: #fff;
     text-decoration: none;
+
+    &:hover {
+      color: #e0e0e0; // Light gray on hover
+    }
   }
-  
-  .nav-link {
-    color: white;
-    margin-right: 1rem;
-    text-decoration: none;
+
+  .nav {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+
+    .nav-item {
+      .nav-link {
+        font-size: 14px;
+        color: #fff;
+        text-decoration: none;
+        transition: color 0.3s;
+
+        &:hover {
+          color: #cce7ff; // Light blue on hover
+        }
+      }
+
+      .btn-danger {
+        font-size: 14px;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 4px;
+        background-color: #dc3545; // Red for logout button
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: #c82333; // Darker red on hover
+        }
+      }
+    }
   }
-  
-  .nav-link:hover {
-    text-decoration: underline;
-  }
-  
-  .btn-danger {
-    color: white;
-    background-color: #dc3545;
-    border: none;
-  }
-  
+}
+
+/* Make navbar invisible on the login page */
+:host-context(.login-page) .navbar {
+  display: none;
+}

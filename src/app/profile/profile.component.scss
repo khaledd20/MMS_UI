@@ -1,4 +1,4 @@
-.meeting-form {
+.profile-container {
     max-width: 600px;
     margin: 50px auto;
     padding: 20px;
@@ -7,17 +7,10 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Subtle shadow
   
     h2 {
-      color: #007bff; // Primary blue
+      color: #007bff; // Primary blue for heading
       text-align: center;
       margin-bottom: 20px;
       font-weight: bold;
-    }
-  
-    .error {
-      color: #dc3545; // Red for error messages
-      font-size: 14px;
-      margin-bottom: 15px;
-      text-align: center;
     }
   
     form {
@@ -34,9 +27,7 @@
           margin-bottom: 5px;
         }
   
-        input,
-        select,
-        textarea {
+        input {
           width: 100%;
           padding: 10px;
           border: 1px solid #ccc;
@@ -50,39 +41,40 @@
             box-shadow: 0 0 4px rgba(0, 123, 255, 0.2); // Subtle focus shadow
           }
         }
+      }
   
-        textarea {
-          min-height: 80px;
-          resize: vertical; // Allow vertical resizing for textareas
-        }
+      .success-message {
+        color: #28a745; // Green for success
+        font-size: 14px;
+        margin-bottom: 10px;
+        text-align: center;
+      }
   
-        select {
-          background-color: #fff; // White background for dropdown
-          cursor: pointer;
-        }
+      .error-message {
+        color: #dc3545; // Red for error
+        font-size: 14px;
+        margin-bottom: 10px;
+        text-align: center;
       }
   
       button {
         padding: 10px 15px;
-        background-color: #007bff; // Primary blue for buttons
-        color: #fff; // White text
+        background-color: #007bff; // Blue button
+        color: #fff;
         border: none;
         border-radius: 4px;
         cursor: pointer;
         font-size: 16px;
         transition: background-color 0.3s;
+        margin-top: 10px;
   
         &:hover {
           background-color: #0056b3; // Darker blue on hover
         }
   
         &:disabled {
-          background-color: #6c757d; // Gray for disabled buttons
+          background-color: #6c757d; // Gray when disabled
           cursor: not-allowed;
-        }
-  
-        &:not(:last-child) {
-          margin-right: 10px;
         }
       }
     }

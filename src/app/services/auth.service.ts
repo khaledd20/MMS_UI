@@ -78,28 +78,42 @@ export class AuthService {
   getCurrentUser(): any {
     const token = localStorage.getItem('authToken');
     if (token) {
-        try {
-            const decodedToken: any = jwtDecode(token);
-            return {
-                userId: decodedToken?.UserId, // Explicitly fetch UserId
-                name: decodedToken?.name || '',
-                email: decodedToken?.email || '',
-                roleId: parseInt(decodedToken?.RoleId, 10), // Parse roleId as an integer
-            };
-        } catch (error) {
-            console.error('Error decoding token in getCurrentUser:', error);
-            return null;
-        }
+      try {
+        const decodedToken: any = jwtDecode(token);
+        return {
+          userId: decodedToken.UserId, // Ensure 'UserId' matches the token structure
+          name: decodedToken.name || '', // Extract 'name' from the token
+          email: decodedToken.email || '', // Extract 'email' from the token
+          roleId: decodedToken.RoleId ? parseInt(decodedToken.RoleId, 10) : null, // Ensure 'RoleId' is parsed as an integer
+        };
+      } catch (error) {
+        console.error('Error decoding token:', error);
+        return null;
+      }
     }
     return null;
-}
+  }
 
-searchUsers(query: string): Observable<any[]> {
-  const token = localStorage.getItem('authToken');
-  const headers = { Authorization: `Bearer ${token}` };
+  
+  updateUser(user: any): Observable<any> {
+    const token = localStorage.getItem('authToken'); // Retrieve the JWT token
+    const headers = { Authorization: `Bearer ${token}` }; // Attach token in headers
+    return this.http.put(`${environment.APIBaseURL}/auth/users/${user.userId}`, user, { headers });
+  }
+  
 
-  return this.http.get<any[]>(`${environment.APIBaseURL}/users/search?query=${query}`, { headers });
-}
+  deleteUser(userId: number): Observable<any> {
+    const token = localStorage.getItem('authToken');
+    const headers = { Authorization: `Bearer ${token}` };
+    return this.http.delete(`${environment.APIBaseURL}/users/${userId}`, { headers });
+  }
+
+  searchUsers(query: string): Observable<any[]> {
+    const token = localStorage.getItem('authToken');
+    const headers = { Authorization: `Bearer ${token}` };
+
+    return this.http.get<any[]>(`${environment.APIBaseURL}/users/search?query=${query}`, { headers });
+  }
 
 
   private navigateToDefaultRoute(roleId: number): void {

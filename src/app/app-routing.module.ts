@@ -10,6 +10,8 @@ import { MeetingFormComponent } from './meetings/meeting-form/meeting-form.compo
 import { AuthGuard } from './services/auth.guard';
 import { AttendeesComponent } from './attendees/attendees.component';
 import { MeetingMinutesComponent } from './meeting.minutes/meeting.minutes.component';
+import { ProfileComponent } from './profile/profile.component';
+import { UserManagementComponent } from './user-management/user-management.component';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -22,8 +24,10 @@ export const routes: Routes = [
   { path: 'meetings/:id/edit', component: MeetingFormComponent , canActivate: [AuthGuard]},
   { path: 'meetings/:meetingId/attendees', component: AttendeesComponent },
   { path: 'minutes/:meetingId/minutes', component: MeetingMinutesComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'user-management', component: UserManagementComponent, canActivate: [AuthGuard] },
 
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', redirectTo: '/login', pathMatch: 'full' },
   
   
 

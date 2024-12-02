@@ -19,6 +19,8 @@ import { NavigationBarComponent } from './shared/navigation-bar/navigation-bar.c
 import { AttendeesComponent } from './attendees/attendees.component';
 import { MeetingMinutesComponent } from './meeting.minutes/meeting.minutes.component';
 import { CommonModule } from '@angular/common';
+import { ProfileComponent } from './profile/profile.component';
+import { UserManagementComponent } from './user-management/user-management.component';
 
 @NgModule({
   declarations: [			
@@ -32,7 +34,9 @@ import { CommonModule } from '@angular/common';
     MeetingListComponent,
     NavigationBarComponent,
     AttendeesComponent,
-    MeetingMinutesComponent
+    MeetingMinutesComponent,
+    ProfileComponent,
+    UserManagementComponent
    ],
   imports: [
     BrowserModule,

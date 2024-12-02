@@ -1,0 +1,39 @@
+<div class="profile-container">
+    <h2>User Profile</h2>
+    <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+      <!-- Name Field -->
+      <div>
+        <label for="name">Name</label>
+        <input id="name" formControlName="name" type="text" placeholder="Enter your name" />
+        <div *ngIf="profileForm.get('name')?.invalid && profileForm.get('name')?.touched">
+          <small>Name is required.</small>
+        </div>
+      </div>
+  
+      <!-- Email Field -->
+      <div>
+        <label for="email">Email</label>
+        <input id="email" formControlName="email" type="email" placeholder="Enter your email" />
+        <div *ngIf="profileForm.get('email')?.invalid && profileForm.get('email')?.touched">
+          <small>Please enter a valid email address.</small>
+        </div>
+      </div>
+  
+      <!-- Password Field -->
+      <div>
+        <label for="password">Password</label>
+        <input id="password" formControlName="password" type="password" placeholder="Enter new password (optional)" />
+        <div *ngIf="profileForm.get('password')?.invalid && profileForm.get('password')?.touched">
+          <small>Password must be at least 6 characters long.</small>
+        </div>
+      </div>
+  
+      <!-- Success and Error Messages -->
+      <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  
+      <!-- Submit Button -->
+      <button type="submit" [disabled]="profileForm.invalid">Update Profile</button>
+    </form>
+  </div>
+  

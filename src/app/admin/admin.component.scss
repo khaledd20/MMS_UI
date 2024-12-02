@@ -1,42 +1,110 @@
 .admin-dashboard {
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #fff; // White background
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Subtle shadow
+
+  h1 {
+    color: #007bff; // Primary blue
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+
+  h2 {
+    color: #333; // Neutral dark gray for secondary heading
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .btn {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 4px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &.btn-primary {
+      background-color: #007bff; // Primary blue button
+      color: #fff;
+
+      &:hover {
+        background-color: #0056b3; // Darker blue on hover
+      }
     }
-  
-    h2 {
-      font-size: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-  
-    .table {
-      width: 100%;
-      border-collapse: collapse;
-  
-      th, td {
-        padding: 10px;
-        border: 1px solid #ddd;
-        text-align: left;
-      }
-  
-      th {
-        background-color: #f4f4f4;
-      }
-  
-      tr:hover {
-        background-color: #f9f9f9;
-      }
-  
-      .btn {
-        margin-right: 5px;
-        font-size: 0.9rem;
+
+    &.btn-warning {
+      background-color: #ffc107; // Yellow for edit actions
+      color: #fff;
+
+      &:hover {
+        background-color: #e0a800; // Darker yellow on hover
       }
     }
-  
-    .no-meetings {
-      text-align: center;
-      font-size: 1.2rem;
-      color: gray;
+
+    &.btn-danger {
+      background-color: #dc3545; // Red for delete actions
+      color: #fff;
+
+      &:hover {
+        background-color: #c82333; // Darker red on hover
+      }
     }
   }
-  
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+
+    thead {
+      background-color: #007bff; // Blue header
+      color: #fff;
+
+      th {
+        padding: 10px;
+        text-align: left;
+        font-weight: bold;
+        border-bottom: 2px solid #ddd;
+      }
+    }
+
+    tbody {
+      tr {
+        &:nth-child(even) {
+          background-color: #f8f9fc; // Light background for alternate rows
+        }
+
+        &:hover {
+          background-color: #eef3ff; // Slight blue hover effect
+        }
+
+        td {
+          padding: 10px;
+          border-bottom: 1px solid #ddd;
+
+          button {
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+  }
+
+  .no-meetings {
+    margin-top: 20px;
+    text-align: center;
+
+    p {
+      color: #6c757d; // Neutral gray for empty state text
+      font-style: italic;
+    }
+  }
+}
