@@ -121,47 +121,6 @@ export class MeetingFormComponent implements OnInit {
     });
   }
   
-  
-  
-  
-
-  // Handle Update Meeting dynamically
-  /*updateMeeting(): void {
-    if (!this.meetingForm.valid) {
-      this.errorMessage = 'Please fill in all required fields correctly.';
-      return;
-    }
-  
-    if (!this.meetingId) {
-      this.errorMessage = 'No meeting ID provided for update.';
-      return;
-    }
-  
-    const meetingData = this.meetingForm.value;
-    const currentUser = this.authService.getCurrentUser();
-  
-    if (!currentUser || !currentUser.userId) {
-      this.errorMessage = 'User not logged in. Please log in to continue.';
-      return;
-    }
-  
-    const payload = {
-      meetingId: this.meetingId,
-      ...meetingData,
-      organizerId: currentUser.userId, // Use dynamic organizer ID
-    };
-  
-    this.meetingService.updateMeeting(this.meetingId, payload).subscribe({
-      next: () => {
-        console.log('Meeting updated successfully.');
-        this.router.navigate(['/admin']);
-      },
-      error: (err: any) => {
-        this.errorMessage = 'Failed to update meeting.';
-        console.error('Error from update API:', err);
-      },
-    });
-  }*/
     updateMeeting(): void {
       if (!this.meetingForm.valid) {
         this.errorMessage = 'Please fill in all required fields correctly.';
