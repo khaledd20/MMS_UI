@@ -29,8 +29,12 @@ export class MeetingService {
   }
 
   updateMeeting(id: number, meeting: any): Observable<any> {
-    return this.http.put<any>(`${this.baseUrl}/${id}`, meeting);
+    // Exclude 'attendees' from the meeting payload
+    const { attendees, ...cleanedPayload } = meeting;
+  
+    return this.http.put<any>(`${this.baseUrl}/${id}`, cleanedPayload);
   }
+  
 
   deleteMeeting(id: number): Observable<any> {
     return this.http.delete<any>(`${this.baseUrl}/${id}`);

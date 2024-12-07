@@ -33,6 +33,16 @@
       <label for="organizerId">Organizer ID</label>
       <input id="organizerId" type="number" formControlName="organizerId" />
     </div>
+    <div>
+      <label for="meetingURL">Meeting URL</label>
+      <input id="meetingURL" formControlName="meetingURL" />
+    </div>
+    <div>
+      <label for="agenda">Agenda</label>
+      <textarea id="agenda" formControlName="agenda"></textarea>
+    </div>
+    
+    
     <button
       type="button"
       (click)="createMeeting()"

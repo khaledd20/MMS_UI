@@ -32,6 +32,8 @@ export class MeetingFormComponent implements OnInit {
       status: ['Assigned', Validators.required],
       description: [''],
       organizerId: ['', Validators.required], // Add organizerId to the form
+      meetingURL: ['',Validators.required],
+      agenda: ['',Validators.required]
 
     });
   }
@@ -53,8 +55,13 @@ export class MeetingFormComponent implements OnInit {
           date: meeting.date,
           time: meeting.time,
           status: meeting.status,
+          agenda: meeting.agenda,         
+          meetingURL: meeting.meetingURL,
           description: meeting.description,
           organizerId:meeting.organizerId,
+          
+
+
         });
       },
       error: (err: any) => {
@@ -73,18 +80,34 @@ export class MeetingFormComponent implements OnInit {
   
     const meetingData = this.meetingForm.value;
   
-    // Get the current user dynamically
+    // Format the date field to 'yyyy-MM-dd'
+    const formattedDate = new Date(meetingData.date).toISOString().split('T')[0];
+  
     const currentUser = this.authService.getCurrentUser();
   
-    if (!currentUser || !currentUser.userId) {
+    if (!currentUser || !currentUser.userId || !currentUser.roleId) {
       this.errorMessage = 'User not logged in. Please log in to continue.';
       return;
     }
   
+    let organizerIdToAssign;
+  
+    // Check if the current user is an admin (roleId === 1)
+    if (currentUser.roleId === 1) {
+      // Allow assigning organizerId from the form input
+      organizerIdToAssign = meetingData.organizerId || currentUser.userId;
+    } else {
+      // For non-admin users, enforce the current user's ID
+      organizerIdToAssign = currentUser.userId;
+    }
+  
     const payload = {
       ...meetingData,
-      organizerId: currentUser.userId, // Dynamically use the logged-in user's ID
+      date: formattedDate,
+      organizerId: organizerIdToAssign, // Final organizerId
     };
+  
+    console.log('Create Payload:', payload);
   
     this.meetingService.createMeeting(payload).subscribe({
       next: () => {
@@ -97,6 +120,8 @@ export class MeetingFormComponent implements OnInit {
       },
     });
   }
+  
+  
   
   
 
@@ -150,11 +175,16 @@ export class MeetingFormComponent implements OnInit {
     
       const meetingData = this.meetingForm.value;
     
-      // Include the manually set organizerId from the form
+      // Format the date field to 'yyyy-MM-dd'
+      const formattedDate = new Date(meetingData.date).toISOString().split('T')[0];
+    
       const payload = {
         meetingId: this.meetingId,
-        ...meetingData, // Includes organizerId from the form
+        ...meetingData,
+        date: formattedDate, // Ensure proper format
       };
+    
+      console.log('Update Payload:', payload);
     
       this.meetingService.updateMeeting(this.meetingId, payload).subscribe({
         next: () => {
@@ -167,6 +197,7 @@ export class MeetingFormComponent implements OnInit {
         },
       });
     }
+    
     
   
   

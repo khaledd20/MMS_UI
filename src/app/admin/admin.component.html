@@ -14,6 +14,8 @@
         <th>Date</th>
         <th>Time</th>
         <th>Status</th>
+        <th>agenda</th>
+        <th>meetingURL</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -23,6 +25,8 @@
         <td>{{ meeting.date | date: 'yyyy-MM-dd' }}</td>
         <td>{{ meeting.time }}</td>
         <td>{{ meeting.status }}</td>
+        <td>{{ meeting.agenda }}</td>
+        <td>{{ meeting.meetingURL }}</td>
         <td>
           <!-- Edit Meeting Button -->
           <button [routerLink]="['/meetings', meeting.meetingId, 'edit']" class="btn btn-warning">

@@ -9,6 +9,8 @@
           <th>Date</th>
           <th>Time</th>
           <th>Status</th>
+          <th>agenda</th>
+          <th>meetingURL</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -18,6 +20,10 @@
           <td>{{ meeting.date }}</td>
           <td>{{ meeting.time }}</td>
           <td>{{ meeting.status }}</td>
+          <td>{{ meeting.Agenda }}</td>
+          <td>{{ meeting.MeetingURL }}</td>
+
+
           <td>
             <button [routerLink]="['/meetings', meeting.id, 'edit']" class="btn btn-secondary">Edit</button>
             <button (click)="deleteMeeting(meeting.id)" class="btn btn-danger">Delete</button>
