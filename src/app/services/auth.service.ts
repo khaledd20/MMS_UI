@@ -36,36 +36,27 @@ export class AuthService {
 
   handleLoginResponse(response: any): void {
     const token = response.bearer;
-
+  
     try {
-      // Decode the JWT token
       const decodedToken: any = jwtDecode(token);
-
-      // Save the token in localStorage for future use
+  
+      // Extract permissions from the token
+      const permissions = decodedToken.Permission
+        ? (Array.isArray(decodedToken.Permission) ? decodedToken.Permission : [decodedToken.Permission])
+        : [];
+  
+      // Save the token and permissions
       localStorage.setItem('authToken', token);
-
-      // Fetch permissions dynamically
-      this.fetchPermissions().subscribe({
-        next: (permissionsResponse) => {
-          console.log('Permissions Response:', permissionsResponse);
-
-          // Extract the roleId from the response
-          const roleId = permissionsResponse?.roleId;
-
-          // Navigate based on the roleId
-          this.navigateToDefaultRoute(roleId);
-          
-        },
-        error: (err) => {
-          console.error('Failed to fetch permissions:', err);
-          this.router.navigate(['/login']); // Redirect to login on error
-        },
-      });
+      this.permissionsSubject.next(permissions); // Update the permissions BehaviorSubject
+  
+      console.log('Permissions:', permissions);
+      this.navigateToDefaultRoute(parseInt(decodedToken.RoleId, 10));
     } catch (error) {
       console.error('Error decoding token:', error);
-      this.router.navigate(['/login']); // Redirect to login on error
+      this.router.navigate(['/login']);
     }
   }
+  
   logout(): void {
     localStorage.removeItem('authToken'); // Clear the token
     console.log('User logged out successfully');
@@ -117,22 +108,9 @@ export class AuthService {
 
 
   private navigateToDefaultRoute(roleId: number): void {
-    switch (roleId) {
-      case 1: // Admin
-        this.router.navigate(['/admin']);
-        break;
-      case 2: // Organizer
-        this.router.navigate(['/organizer']);
-        break;
-      case 3: // Participant
-        this.router.navigate(['/participant']);
-        break;
-      default:
-        console.error('Invalid role ID:', roleId);
-        this.router.navigate(['/login']); // Fallback to login
-        break;
-    }
-  }
+    this.router.navigate(['/admin']); // All users go to admin
+}
+
 
   private fetchPermissions(): Observable<any> {
     const token = localStorage.getItem('authToken');
