@@ -14,16 +14,41 @@ export class AuthService {
   private permissionsUrl = `${environment.APIBaseURL}/api/permissions`;
   private isLoggedInSubject = new BehaviorSubject<boolean>(this.isAuthenticated());
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
-
+  private saveToken(token: string): void {
+    localStorage.setItem('authToken', token);
+    this.loadTokenOnInit(); // Reload permissions
+  }
+  private loadTokenOnInit(): void {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      try {
+        const decodedToken: any = jwtDecode(token);
+        const permissions = decodedToken.Permission
+          ? Array.isArray(decodedToken.Permission)
+            ? decodedToken.Permission
+            : [decodedToken.Permission]
+          : [];
+        this.permissionsSubject.next(permissions);
+      } catch (error) {
+        console.error('Failed to decode token:', error);
+        this.logout();
+      }
+    }
+  }
+  
   // Define permissions$ as a BehaviorSubject
   private permissionsSubject = new BehaviorSubject<string[]>([]);
   public permissions$ = this.permissionsSubject.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {
+    this.loadTokenOnInit(); // Reload token and permissions when app initializes
+
+  }
 
   login(loginRequest: { email: string; password: string }): Observable<any> {
     return this.http.post(this.loginUrl, loginRequest).pipe(
       tap((response: any) => {
+        this.saveToken(response.token);
         localStorage.setItem('authToken', response.token);
         this.isLoggedInSubject.next(true); // Notify components that the user is logged in
       })
@@ -63,8 +88,17 @@ export class AuthService {
   }
   isAuthenticated(): boolean {
     const token = localStorage.getItem('authToken');
-    return !!token; // Returns true if the token exists
+    if (!token) return false;
+  
+    try {
+      const decoded: any = jwtDecode(token);
+      const currentTime = Math.floor(Date.now() / 1000);
+      return decoded.exp > currentTime; // Ensure token is not expired
+    } catch (e) {
+      return false;
+    }
   }
+  
   
   getCurrentUser(): any {
     const token = localStorage.getItem('authToken');

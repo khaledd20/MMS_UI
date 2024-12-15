@@ -1,7 +1,9 @@
 <div class="attendees">
-  <h2>Attendees</h2>
 
   <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <div *ngIf="permissions.includes('Delete Attendee')" >
+    <h2>Attendees</h2>
 
   <!-- Search Form -->
   <form [formGroup]="attendeeForm" (ngSubmit)="searchUsers()">
@@ -20,13 +22,14 @@
 
   <p *ngIf="isSearching">Searching...</p>
   <p *ngIf="!isSearching && searchResults.length === 0">No results found.</p>
-
+  </div>
   <!-- Attendees List -->
   <h3>Meeting Attendees</h3>
   <ul *ngIf="attendees.length > 0">
     <li *ngFor="let attendee of attendees">
       {{ attendee.name }} ({{ attendee.email }})
-      <button (click)="removeAttendee(attendee.id)">Remove</button>
+      <button *ngIf="permissions.includes('Delete Attendee')" 
+       (click)="removeAttendee(attendee.id)">Remove</button>
     </li>
   </ul>
 

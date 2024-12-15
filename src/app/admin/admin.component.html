@@ -1,6 +1,6 @@
 <div class="admin-dashboard">
-  <h1>Welcome to the App</h1>
-  <h2>Admin Dashboard</h2>
+  <h1>Welcome to Meeting Management System</h1>
+  <h2>Dashboard</h2>
 
   <!-- Create Meeting Button -->
   <button *ngIf="permissions.includes('Create Meetings')" routerLink="/meetings/new" class="btn btn-primary">
@@ -34,11 +34,12 @@
             Edit
           </button>
           <!-- View Attendees Button -->
-          <button [routerLink]="['/meetings', meeting.meetingId, 'attendees']" class="btn btn-primary">
+          <button *ngIf="permissions.includes('View Attendee')"
+                  [routerLink]="['/meetings', meeting.meetingId, 'attendees']" class="btn btn-primary">
             View Attendees
           </button>
            <!-- View Meeting Minutes -->
-           <button *ngIf="permissions.includes('View Meetings')" 
+           <button *ngIf="permissions.includes('View Minute M')" 
            [routerLink]="['/minutes', meeting.meetingId, 'minutes']" class="btn btn-primary">
             Meeting Minutes
           </button>

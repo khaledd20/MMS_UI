@@ -1,25 +1,45 @@
 <div class="meeting-minutes">
-  <h2>Meeting Minutes</h2>
 
   <!-- Error and Success Messages -->
-  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
   <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
+  
 
-  <!-- Add/Edit Form -->
-  <form [formGroup]="minuteForm" (ngSubmit)="saveMinute()">
-    <textarea formControlName="content" placeholder="Enter meeting minute"></textarea>
-    <button type="submit" [disabled]="minuteForm.invalid">
-      {{ isEditing ? 'Update Minute' : 'Add Minute' }}
-    </button>
-  </form>
-
+    <div *ngIf="permissions.includes('Create Minute M') || permissions.includes('Edit Minute M')">
+      <h2>Meeting Minutes</h2>
+    
+      <!-- Add Form -->
+      <form *ngIf="!isEditing && permissions.includes('Create Minute M')" 
+            [formGroup]="minuteForm" 
+            (ngSubmit)="saveMinute()">
+        <textarea formControlName="content" placeholder="Enter meeting minute"></textarea>
+        <button type="submit" [disabled]="minuteForm.invalid">
+          Add Minute
+        </button>
+      </form>
+    
+      <!-- Edit Form -->
+      <form *ngIf="isEditing && permissions.includes('Edit Minute M')" 
+            [formGroup]="minuteForm" 
+            (ngSubmit)="saveMinute()">
+        <textarea formControlName="content" placeholder="Update meeting minute"></textarea>
+        <button type="submit" [disabled]="minuteForm.invalid">
+          Update Minute
+        </button>
+      </form>
+    </div>
+    
   <!-- List of Minutes -->
   <h3>Minutes List</h3>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
   <ul>
     <li *ngFor="let minute of minutes">
       <p>{{ minute.content }} ({{ minute.timestamp | date: 'short' }})</p>
-      <button (click)="editMinute(minute)">Edit</button>
-      <button (click)="deleteMinute(minute.minuteId)">Delete</button>
+      <button *ngIf="permissions.includes('Edit Meetings')" 
+       (click)="editMinute(minute)">Edit</button>
+
+       <button *ngIf="permissions.includes('Delete Meetings')" 
+        (click)="deleteMinute(minute.minuteId)">Delete</button>
     </li>
   </ul>
 </div>

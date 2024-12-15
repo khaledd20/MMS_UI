@@ -3,34 +3,18 @@
     <div class="container">
       <a class="navbar-brand" >MMS</a>
       <ul class="nav">
-        <!-- Common Links for All Roles 
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/dashboard">Dashboard</a>
-        </li>-->
+        
         <li class="nav-item">
           <a class="nav-link" routerLink="/profile">Profile</a>
         </li>
         <!-- Admin Links -->
-        <li class="nav-item" *ngIf="userRole === 1">
-          <a class="nav-link" routerLink="/admin">Meetings</a>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/admin">Dashboard</a>
         </li>
         
-        
-        <li class="nav-item"*ngIf="userRole === 1">
-          <a class="nav-link" routerLink="/user-management">user management</a>
-        </li>
-        
-        <!-- Organizer Links -->
-        <li class="nav-item" *ngIf="userRole === 2">
-          <a class="nav-link" routerLink="/organizer">Meetings</a>
-        </li>
-        <!-- <li class="nav-item" *ngIf="userRole === 2">
-          <a class="nav-link" routerLink="/attendees">Attendees</a>
-        </li>-->
-  
-        <!-- Participant Links -->
-        <li class="nav-item" *ngIf="userRole === 3">
-          <a class="nav-link" routerLink="/participant">My Meetings</a>
+        <li *ngIf="permissions.includes('Manage users')" 
+         class="nav-item">
+          <a class="nav-link" routerLink="/user-management">User Management</a>
         </li>
   
         <!-- Logout -->

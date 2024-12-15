@@ -12,29 +12,75 @@ import { AttendeesComponent } from './attendees/attendees.component';
 import { MeetingMinutesComponent } from './meeting.minutes/meeting.minutes.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UserManagementComponent } from './user-management/user-management.component';
+
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'participant', component: ParticipantComponent, canActivate: [AuthGuard]},
-  { path: 'admin', component: AdminComponent , canActivate: [AuthGuard]},
-  { path: 'organizer', component: OrganizerComponent , canActivate: [AuthGuard]},
+  { 
+    path: 'participant', 
+    component: ParticipantComponent, 
+    canActivate: [AuthGuard],
+    data: { permission: 'View Participant Dashboard' } 
+  },
+  { 
+    path: 'admin', 
+    component: AdminComponent, 
+    canActivate: [AuthGuard],
+    data: { permission: 'View Admin Dashboard' }
+  },
+  { 
+    path: 'organizer', 
+    component: OrganizerComponent, 
+    canActivate: [AuthGuard],
+    data: { permission: 'View Organizer Dashboard' }
+  },
   { path: 'register', component: RegistrationComponent },
-  { path: 'meetings', component: MeetingListComponent , canActivate: [AuthGuard]},
-  { path: 'meetings/new', component: MeetingFormComponent , canActivate: [AuthGuard]},
-  { path: 'meetings/:id/edit', component: MeetingFormComponent , canActivate: [AuthGuard]},
-  { path: 'meetings/:meetingId/attendees', component: AttendeesComponent },
-  { path: 'minutes/:meetingId/minutes', component: MeetingMinutesComponent },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'user-management', component: UserManagementComponent, canActivate: [AuthGuard] },
-
+  { 
+    path: 'meetings', 
+    component: MeetingListComponent, 
+    canActivate: [AuthGuard],
+    data: { permission: 'View Meetings' }
+  },
+  { 
+    path: 'meetings/new', 
+    component: MeetingFormComponent, 
+    canActivate: [AuthGuard],
+    data: { permission: 'Create Meetings' }
+  },
+  { 
+    path: 'meetings/:id/edit', 
+    component: MeetingFormComponent, 
+    canActivate: [AuthGuard],
+    data: { permission: 'Edit Meetings' }
+  },
+  { 
+    path: 'meetings/:meetingId/attendees', 
+    component: AttendeesComponent, 
+    canActivate: [AuthGuard],
+    data: { permission: 'View Attendee' }
+  },
+  { 
+    path: 'minutes/:meetingId/minutes', 
+    component: MeetingMinutesComponent,
+    canActivate: [AuthGuard],
+    data: { permission: 'View Minute M' }
+  },
+  { 
+    path: 'profile', 
+    component: ProfileComponent, 
+    canActivate: [AuthGuard]
+  },
+  { 
+    path: 'user-management', 
+    component: UserManagementComponent, 
+    canActivate: [AuthGuard],
+    data: { permission: 'Manage Users' }
+  },
   { path: '**', redirectTo: '/login', pathMatch: 'full' },
-  
-  
-
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

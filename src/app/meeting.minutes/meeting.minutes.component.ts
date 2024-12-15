@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MeetingMinutesService } from '../services/meeting.minutes.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-meeting-minutes',
@@ -16,11 +17,13 @@ export class MeetingMinutesComponent implements OnInit {
   editingMinuteId: number | null = null; // Store the ID of the minute being edited
   errorMessage: string = '';
   successMessage: string = '';
+  permissions: string[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private minutesService: MeetingMinutesService
+    private minutesService: MeetingMinutesService,
+    private authService: AuthService
   ) {
     this.minuteForm = this.fb.group({
       content: ['', Validators.required],
@@ -28,6 +31,9 @@ export class MeetingMinutesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.authService.permissions$.subscribe((permissions) => {
+      this.permissions = permissions;
+    });
     this.meetingId = +this.route.snapshot.paramMap.get('meetingId')!;
     if (this.meetingId) {
       this.loadMinutes();
@@ -41,15 +47,24 @@ export class MeetingMinutesComponent implements OnInit {
     if (this.meetingId) {
       this.minutesService.getMinutes(this.meetingId).subscribe({
         next: (data) => {
-          this.minutes = data;
+          if (data && data.length > 0) {
+            this.minutes = data;
+            this.errorMessage = ''; // Clear any error messages
+          } else {
+            this.minutes = []; // Set empty minutes
+            this.successMessage = 'No meeting minutes available for this meeting.'; // Show a success/info message
+          }
         },
         error: (err) => {
-          this.errorMessage = 'Failed to load meeting minutes.';
+          this.minutes = []; // Ensure the list is empty
+          this.errorMessage = 'Failed to load meeting minutes.'; // Show the actual error message
           console.error(err);
         },
       });
     }
   }
+  
+  
 
   // Save (Add or Update) a minute
   saveMinute(): void {

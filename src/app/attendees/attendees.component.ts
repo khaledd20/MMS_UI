@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AttendeesService } from '../services/attendees.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-attendees',
@@ -16,11 +17,13 @@ export class AttendeesComponent implements OnInit {
   attendeeForm: FormGroup; // Form for adding an attendee
   searchResults: any[] = []; // Search results for users
   isSearching: boolean = false; // Indicates if a search is ongoing
+  permissions: string[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private attendeesService: AttendeesService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private authService: AuthService
   ) {
     // Initialize the attendee form
     this.attendeeForm = this.fb.group({
@@ -30,6 +33,9 @@ export class AttendeesComponent implements OnInit {
 
   ngOnInit(): void {
     // Get the meeting ID from the route parameters
+    this.authService.permissions$.subscribe((permissions) => {
+      this.permissions = permissions;
+    });
     this.meetingId = +this.route.snapshot.paramMap.get('meetingId')!;
     console.log(`Meeting ID from URL: ${this.meetingId}`); // Debug log
     if (this.meetingId) {
